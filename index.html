@@ -6,7 +6,8 @@
     <title>FlowList - Mobile List Manager</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#667eea">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="description" content="A beautiful, accessible mobile-compatible list manager with offline support">
 </head>
 <body>
     <div class="app-container">
@@ -14,13 +15,13 @@
             <h1 class="app-title">
                 <span class="gradient-text">FlowList</span>
             </h1>
-            <div class="stats">
+            <div class="stats" role="region" aria-label="Task statistics">
                 <span class="stat-item">
-                    <span class="stat-number" id="activeCount">0</span>
+                    <span class="stat-number" id="activeCount" aria-label="Active tasks">0</span>
                     <span class="stat-label">Active</span>
                 </span>
                 <span class="stat-item">
-                    <span class="stat-number" id="completedCount">0</span>
+                    <span class="stat-number" id="completedCount" aria-label="Completed tasks">0</span>
                     <span class="stat-label">Done</span>
                 </span>
             </div>
@@ -28,17 +29,20 @@
 
         <main class="main-content">
             <div class="input-section">
-                <form id="addItemForm" class="add-form">
+                <form id="addItemForm" class="add-form" aria-label="Add new task">
+                    <label for="newItemInput" class="sr-only">New task description</label>
                     <input 
                         type="text" 
                         id="newItemInput" 
                         class="item-input" 
-                        placeholder="Add a new item..."
+                        placeholder="Add a new task..."
                         autocomplete="off"
                         maxlength="100"
+                        aria-required="true"
+                        aria-label="Task description"
                     >
-                    <button type="submit" class="add-btn" aria-label="Add item">
-                        <svg class="add-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <button type="submit" class="add-btn" aria-label="Add task">
+                        <svg class="add-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
@@ -46,32 +50,44 @@
                 </form>
             </div>
 
-            <div class="filter-tabs">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="active">Active</button>
-                <button class="filter-btn" data-filter="completed">Completed</button>
-            </div>
+            <nav class="filter-tabs" role="navigation" aria-label="Filter tasks">
+                <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+                <button class="filter-btn" data-filter="active" aria-pressed="false">Active</button>
+                <button class="filter-btn" data-filter="completed" aria-pressed="false">Completed</button>
+            </nav>
 
-            <ul id="itemList" class="item-list">
+            <ul id="itemList" class="item-list" role="list" aria-label="Task list">
                 <!-- Items will be dynamically added here -->
             </ul>
 
-            <div class="empty-state" id="emptyState">
-                <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <div class="empty-state" id="emptyState" role="status" aria-live="polite">
+                <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <circle cx="12" cy="12" r="10"></circle>
                     <circle cx="12" cy="12" r="3"></circle>
                 </svg>
-                <p class="empty-text">No items yet. Add your first task!</p>
+                <p class="empty-text">No tasks yet. Add your first task!</p>
             </div>
         </main>
 
-        <button class="clear-completed" id="clearCompletedBtn">
+        <button class="clear-completed" id="clearCompletedBtn" aria-label="Clear completed tasks">
             Clear Completed
         </button>
     </div>
 
     <script type="module" src="app.js"></script>
+    <style>
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
-
