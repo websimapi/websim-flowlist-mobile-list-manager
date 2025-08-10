@@ -12,7 +12,13 @@ class ListManager {
         
         // Register service worker for PWA
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+            navigator.serviceWorker.register('./sw.js', { scope: './' })
+                .then(registration => {
+                    console.log('Service Worker registered:', registration);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
         }
     }
 
@@ -240,4 +246,3 @@ class ListManager {
 }
 
 new ListManager();
-
