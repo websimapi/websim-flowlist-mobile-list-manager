@@ -1,0 +1,346 @@
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --background: linear-grad-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --surface: #ffffff;
+    --surface-variant: #f8fafc;
+    --text-primary: #1a202c;
+    --text-secondary: #718096;
+    --border: #e2e8f0;
+    --success: #48bb78;
+    --danger: #f56565;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.app-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.app-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.main-content {
+    flex: 1;
+}
+
+.input-section {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin-bottom: 24px;
+}
+
+.add-form {
+    position: relative;
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.item-input {
+    width: 100%;
+    padding: 20px 60px 20px 20px;
+    border: none;
+    font-size: 1.125rem;
+    background: transparent;
+    color: var(--text-primary);
+    outline: none;
+}
+
+.item-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.add-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.add-btn:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+.add-icon {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.filter-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn.active {
+    background: var(--surface);
+    color: var(--text-primary);
+    box-shadow: var(--shadow);
+}
+
+.item-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow);
+    animation: slideIn 0.3s ease-out;
+    transition: all 0.3s;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.item.removing {
+    animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.checkbox.checked {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox.checked::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.item-content {
+    flex: 1;
+    font-size: 1rem;
+    color: var(--text-primary);
+    transition: all 0.3s;
+}
+
+.item.completed .item-content {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+    transform: translateX(4px);
+}
+
+.delete-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--danger);
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s;
+    border-radius: 6px;
+}
+
+.item:hover .delete-btn {
+    opacity: 0.6;
+}
+
+.delete-btn:hover {
+    opacity: 1 !important;
+    background: rgba(245, 101, 101, 0.1);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+    display: none;
+}
+
+.empty-state.show {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.empty-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    opacity: 0.5;
+}
+
+.clear-completed {
+    display: block;
+    margin: 32px auto;
+    padding: 12px 24px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.clear-completed:hover {
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+@media (max-width: 600px) {
+    .app-container {
+        padding: 16px;
+    }
+    
+    .app-title {
+        font-size: 2rem;
+    }
+    
+    .item-input {
+        font-size: 1rem;
+    }
+    
+    .stats {
+        gap: 32px;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .delete-btn {
+        opacity: 0.6;
+    }
+}
+
+.item[draggable="true"] {
+    cursor: grab;
+}
+
+.item[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+.item.dragging {
+    opacity: 0.5;
+    transform: rotate(2deg);
+}
+
